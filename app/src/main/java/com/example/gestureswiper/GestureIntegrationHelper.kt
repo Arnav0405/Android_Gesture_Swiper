@@ -2,9 +2,6 @@ package com.example.gestureswiper
 
 import android.content.Context
 import androidx.camera.core.ImageProxy
-import com.example.gestureswiper.GestureRecognitionManager
-import com.example.gestureswiper.HandLandmarkerHelper
-import com.example.gestureswiper.ONNXGestureHelper
 import com.google.mediapipe.tasks.vision.core.RunningMode
 
 class GestureIntegrationHelper(private val context: Context) {

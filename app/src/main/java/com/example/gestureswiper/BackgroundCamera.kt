@@ -2,7 +2,6 @@ package com.example.gestureswiper
 
 import android.content.Context
 import android.util.Log
-import android.util.Size
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
