@@ -1,10 +1,8 @@
 package com.example.gestureswiper
 
 import android.Manifest
-import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
@@ -31,8 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.example.gestureswiper.ui.theme.GestureSwiperTheme
 import kotlinx.coroutines.delay
-import android.util.Log
-import android.content.Context
 
 class MainActivity : ComponentActivity() {
 
@@ -90,42 +86,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-fun isAccessibilityServiceEnabled(context: Context): Boolean {
-    val accessibilityEnabled = Settings.Secure.getInt(
-        context.contentResolver,
-        Settings.Secure.ACCESSIBILITY_ENABLED, 0
-    )
-
-    if (accessibilityEnabled == 1) {
-        val services = Settings.Secure.getString(
-            context.contentResolver,
-            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-        )
-        val expectedService = ComponentName(context, GestureToTouch::class.java)
-        return services?.contains(expectedService.flattenToString()) == true
-    }
-    return false
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     onOpenAccessibilitySettings: () -> Unit
 ) {
     var currentScreen by remember { mutableStateOf("main") }
-    var isBackgroundServiceActive by remember { mutableStateOf(false) }
-    var isGestureDetectionActive by remember { mutableStateOf(false) }
-    val context = LocalContext.current
-    var accessibilityServiceEnabled by remember { mutableStateOf(isAccessibilityServiceEnabled(context)) }
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            accessibilityServiceEnabled = isAccessibilityServiceEnabled(context)
-            isBackgroundServiceActive = GestureToTouch.isServiceRunning()
-            isGestureDetectionActive = GestureToTouch.isGestureDetectionActive()
-            delay(1000)
-        }
-    }
 
     Box(
         modifier = Modifier
@@ -172,7 +138,6 @@ fun MainMenuScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // App Title
         Text(
             text = "GestureSwiper",
             fontSize = 32.sp,
@@ -192,7 +157,6 @@ fun MainMenuScreen(
 
         Spacer(modifier = Modifier.height(48.dp))
 
-        // Menu Cards
         MenuCard(
             title = "Live Gesture Recognition",
             description = "Test gesture recognition with camera preview",
@@ -204,14 +168,13 @@ fun MainMenuScreen(
 
         MenuCard(
             title = "Background Service",
-            description = "Control gestures in background for system-wide control",
+            description = "Control gestures using Camera",
             icon = Icons.Default.Home,
             onClick = onNavigateToBackground
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Permissions Status
         PermissionsStatusCard()
     }
 }
@@ -284,8 +247,6 @@ fun PermissionsStatusCard() {
             overlayPermission =
                 Settings.canDrawOverlays(context)
 
-            accessibilityPermission = isAccessibilityServiceEnabled(context)
-
             delay(1000)
         }
     }
@@ -309,8 +270,6 @@ fun PermissionsStatusCard() {
             Spacer(modifier = Modifier.height(12.dp))
 
             PermissionRow("Camera", cameraPermission)
-            PermissionRow("System Overlay", overlayPermission)
-            PermissionRow("Accessibility Service", accessibilityPermission)
         }
     }
 }
