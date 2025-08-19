@@ -3,10 +3,7 @@ package com.example.gestureswiper
 import android.content.Context
 import android.util.Log
 import ai.onnxruntime.*
-import androidx.compose.ui.platform.LocalWindowInfo
-import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.nio.FloatBuffer
-import java.util.concurrent.ConcurrentLinkedQueue
 import kotlinx.coroutines.*
 
 class ONNXGestureHelper(
@@ -253,8 +250,8 @@ class ONNXGestureHelper(
             val outputs = session.run(inputs)
 
             try {
-                Log.d("ONNXGestureHelper", "Outputs: $outputs")
-                Log.d("ONNXGestureHelper", "object: ${outputs.first().value}")
+//                Log.d("ONNXGestureHelper", "Outputs: $outputs")
+//                Log.d("ONNXGestureHelper", "object: ${outputs.first().value}")
 
                 val outputTensor = outputs.first().value as OnnxTensor
                 val outputBuffer = outputTensor.floatBuffer

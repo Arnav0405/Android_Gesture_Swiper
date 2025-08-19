@@ -3,8 +3,6 @@ package com.example.gestureswiper
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
 import androidx.annotation.VisibleForTesting
@@ -17,7 +15,6 @@ import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarkerResult
 import androidx.core.graphics.createBitmap
-import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 
 class HandLandmarkerHelper(
     var runningMode: RunningMode = RunningMode.VIDEO,
@@ -179,7 +176,7 @@ class HandLandmarkerHelper(
             }
         }
 
-        Log.i("HandLandmarkerResult", "Keypoints size: ${keypoints.size}")
+//        Log.i("HandLandmarkerResult", "Keypoints size: ${keypoints.size}")
 
         handLandmarkerHelperListener?.onResults(
             ResultBundle(

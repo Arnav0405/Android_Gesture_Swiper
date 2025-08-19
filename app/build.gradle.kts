@@ -44,6 +44,7 @@ dependencies {
     implementation("com.google.mediapipe:tasks-vision:latest.release")
 //    implementation("androidx.navigation:navigation-compose:latest")
     implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("androidx.lifecycle:lifecycle-service:2.9.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
